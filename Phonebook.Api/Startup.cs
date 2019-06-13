@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Phonebook.Api.Handlers;
+using Phonebook.Api.Repositories;
+using Phonebook.Common.Events;
+using Phonebook.Common.Mongo;
+using Phonebook.Common.RabbitMq;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Phonebook.Api
 {
@@ -22,13 +21,20 @@ namespace Phonebook.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddLogging();
+            services.AddMongoDb(Configuration);
+            services.AddRabbitMq(Configuration);
+            services.AddScoped<IEventHandler<EntryCreated>, EntryCreatedHandler>();
+            services.AddScoped<IEntryRepository, EntryRepository>();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Phonebook Api v1", Version = "v1" });
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -39,6 +45,12 @@ namespace Phonebook.Api
             {
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Phonebook Api v1");
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();
