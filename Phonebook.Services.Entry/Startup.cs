@@ -39,12 +39,12 @@ namespace Phonebook.Services.Entry
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStaticFiles();
             }
             else
             {
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseMvc();
         }
