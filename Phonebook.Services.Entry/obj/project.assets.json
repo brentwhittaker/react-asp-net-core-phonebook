@@ -12979,7 +12979,9 @@
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.NETCore.App >= 2.1.0",
-      "Phonebook.Common >= 1.0.0"
+      "MongoDB.Driver >= 2.8.0",
+      "Phonebook.Common >= 1.0.0",
+      "RabbitMQ.Client >= 5.1.0"
     ]
   },
   "packageFolders": {
@@ -12989,11 +12991,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Brent Whittaker\\source\\repos\\react-net-core\\Phonebook.Services.Entry\\Phonebook.Services.Entry.csproj",
+      "projectUniqueName": "C:\\Users\\Brent Whittaker\\source\\repos\\react-net-core\\phonebook.services.entry\\Phonebook.Services.Entry.csproj",
       "projectName": "Phonebook.Services.Entry",
-      "projectPath": "C:\\Users\\Brent Whittaker\\source\\repos\\react-net-core\\Phonebook.Services.Entry\\Phonebook.Services.Entry.csproj",
+      "projectPath": "C:\\Users\\Brent Whittaker\\source\\repos\\react-net-core\\phonebook.services.entry\\Phonebook.Services.Entry.csproj",
       "packagesPath": "C:\\Users\\Brent Whittaker\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Brent Whittaker\\source\\repos\\react-net-core\\Phonebook.Services.Entry\\obj\\",
+      "outputPath": "C:\\Users\\Brent Whittaker\\source\\repos\\react-net-core\\phonebook.services.entry\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13042,6 +13044,14 @@
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
+          },
+          "MongoDB.Driver": {
+            "target": "Package",
+            "version": "[2.8.0, )"
+          },
+          "RabbitMQ.Client": {
+            "target": "Package",
+            "version": "[5.1.0, )"
           }
         },
         "imports": [

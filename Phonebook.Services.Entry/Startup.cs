@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Phonebook.Common.Commands;
+using Phonebook.Common.Events;
+using Phonebook.Common.Mongo;
+using Phonebook.Common.RabbitMq;
+using Phonebook.Services.Entry.Domain.Repositories;
+using Phonebook.Services.Entry.Domain.Services;
+using Phonebook.Services.Entry.Handlers;
+using Phonebook.Services.Entry.Repositories;
+using Phonebook.Services.Entry.Services;
 
 namespace Phonebook.Services.Entry
 {
@@ -22,13 +24,16 @@ namespace Phonebook.Services.Entry
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMongoDb(Configuration);
+            services.AddRabbitMq(Configuration);
+            services.AddScoped<ICommandHandler<xEntry>, InsertEntryHandler>();
+            services.AddScoped<IEntryRepository, EntryRepository>();
+            services.AddScoped<IEntryService, EntryService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

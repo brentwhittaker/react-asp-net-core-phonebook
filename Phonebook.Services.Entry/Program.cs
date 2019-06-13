@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Phonebook.Common.Commands;
+using Phonebook.Common.Events;
+using Phonebook.Common.RabbitMq;
+using Phonebook.Common.Services;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace Phonebook.Services.Entry
 {
@@ -14,11 +10,15 @@ namespace Phonebook.Services.Entry
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            MainAsync(args).GetAwaiter().GetResult();
         }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public async static Task MainAsync(string[] args)
+        {
+            await ServiceHost.Create<Startup>(args)
+                .UseRabbitMq()
+                .SubscribeToCommand<xEntry>()
+                .Build()
+                .Run();
+        }
     }
 }
