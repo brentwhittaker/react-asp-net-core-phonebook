@@ -23,7 +23,7 @@ namespace Phonebook.Api.Repositories
         public async Task<IEnumerable<xEntry>> GetCollectionAsync(int pageNo, int pageSize)
             => await Collection
                 .AsQueryable()
-                .Skip(pageNo * pageSize)
+                .Skip((pageNo - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
@@ -31,7 +31,7 @@ namespace Phonebook.Api.Repositories
         public async Task<IEnumerable<xEntry>> SearchCollectionAsync(int pageNo, int pageSize, string searchTerm)
             => await Collection
                 .AsQueryable()
-                .Skip(pageNo * pageSize)
+                .Skip((pageNo - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
