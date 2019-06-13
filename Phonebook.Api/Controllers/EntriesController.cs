@@ -30,12 +30,15 @@ namespace Phonebook.Api.Controllers
             return Accepted($"save/{command.Id}");
         }
 
-        // TODO: add paging
-        [HttpGet("getlist/{searchterm}")]
-        public async Task<IActionResult> Get(string searchterm)
+        [HttpGet("getbook")]
+        public async Task<IActionResult> Get(int pageNo, int pageSize, string searchTerm)
         {
-            var entries = await _repository.GetCollectionAsync(searchterm);
-            return Json(entries);
+            var entries = string.IsNullOrEmpty(searchTerm) ? 
+                await _repository.GetCollectionAsync(pageNo, pageSize) : 
+                await _repository.SearchCollectionAsync(pageNo, pageSize, searchTerm);
+            var totalEntries = await _repository.TotalCountAsync();
+
+            return Json(new { entries, pageNo, pageSize, totalEntries, searchTerm });
         }
     }
 }

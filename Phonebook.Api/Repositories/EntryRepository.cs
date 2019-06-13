@@ -19,11 +19,26 @@ namespace Phonebook.Api.Repositories
         public async Task AddAsync(xEntry entry)
             => await Collection.InsertOneAsync(entry);
 
-        // TODO: fixme and add search term for name and phone number
-        public async Task<IEnumerable<xEntry>> GetCollectionAsync(string searchTerm)
+        // TODO: add sorting asc
+        public async Task<IEnumerable<xEntry>> GetCollectionAsync(int pageNo, int pageSize)
             => await Collection
                 .AsQueryable()
+                .Skip(pageNo * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
+
+        // TODO: add search filter
+        public async Task<IEnumerable<xEntry>> SearchCollectionAsync(int pageNo, int pageSize, string searchTerm)
+            => await Collection
+                .AsQueryable()
+                .Skip(pageNo * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+        public async Task<int> TotalCountAsync()
+            => await Collection
+                .AsQueryable()
+                .CountAsync();
 
         private IMongoCollection<xEntry> Collection
             => _database.GetCollection<xEntry>("Entries");
