@@ -33,16 +33,18 @@ namespace Phonebook.Api.Controllers
         [HttpGet("getbook")]
         public async Task<IActionResult> Get(string searchTerm, int pageNo = 1, int pageSize = 10)
         {
-            if(pageNo < 0 || pageSize < 0)
+            if (pageNo < 0 || pageSize < 0)
             {
                 return BadRequest();
             }
             var totalEntries = await _repository.TotalCountAsync();
-            var entries = string.IsNullOrEmpty(searchTerm) ? 
-                _repository.GetCollectionAsync(pageNo, pageSize) : 
+            var entries = string.IsNullOrEmpty(searchTerm) ?
+                _repository.GetCollectionAsync(pageNo, pageSize) :
                 _repository.SearchCollectionAsync(pageNo, pageSize, searchTerm);
 
-            return Json(new { entries, pageNo, pageSize, totalEntries, searchTerm });
+            var totalPages = Math.Ceiling((float)totalEntries / (float)pageSize);
+
+            return Json(new { entries, pageNo, totalPages, searchTerm });
         }
     }
 }

@@ -33,6 +33,10 @@ namespace Phonebook.Api
             {
                 c.SwaggerDoc("v1", new Info { Title = "Phonebook Api v1", Version = "v1" });
             });
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -51,7 +55,7 @@ namespace Phonebook.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Phonebook Api v1");
             });
-
+            app.UseCors(options => options.AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseMvc();
         }
