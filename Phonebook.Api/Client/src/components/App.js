@@ -59,11 +59,8 @@ class App extends Component {
   };
 
   render() {
-    // console.log("this.state", this.state);
     return (
       <div>
-        <h2>Phonebook App</h2>
-        <button>Add Contact</button>
         <Search fetchContacts={this.fetchContacts} pageNo={this.state.pageNo} />
         <Contacts
           fetchContacts={this.fetchContacts}
