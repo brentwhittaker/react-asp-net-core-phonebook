@@ -20,22 +20,22 @@ namespace Phonebook.Api.Controllers
         }
 
         [HttpPost("save")]
-        public async Task<IActionResult> Post([FromBody] RequestEntry model)
+        public async Task<IActionResult> Post([FromBody] Contact model)
         {
             if (model == null)
             {
-                return BadRequest(new { message = "Model is invalid" });
+                return BadRequest(new { message = "Save failed" });
             }
             if (string.IsNullOrEmpty(model.Name) || string.IsNullOrEmpty(model.PhoneNumber))
             {
-                return BadRequest(new { message = "Model is invalid" });
+                return BadRequest(new { message = "Save failed" });
             }
             var command = new Phonebook.Common.Commands.xEntry();
             command.Id = Guid.NewGuid();
             command.Name = model.Name;
             command.PhoneNumber = model.PhoneNumber;
             await _busClient.PublishAsync(command);
-            return Accepted($"save/{command.Id}");
+            return Accepted(new { message = "Save succeeded" });
         }
 
         [HttpGet("contacts")]
@@ -43,7 +43,7 @@ namespace Phonebook.Api.Controllers
         {
             if (pageNo < 0 || pageSize < 0)
             {
-                return BadRequest(new { message = "Query params are invalid" });
+                return BadRequest(new { message = "Cannot retrieve contacts" });
             }
             var totalEntries = string.IsNullOrEmpty(searchTerm) ?
                 _repository.TotalCount() :
@@ -54,7 +54,7 @@ namespace Phonebook.Api.Controllers
 
             if (pageNo > totalPages)
             {
-                return BadRequest(new { message = "Query params are invalid" });
+                return BadRequest(new { message = "Cannot retrieve contacts" });
             }
 
             var entries = string.IsNullOrEmpty(searchTerm) ?

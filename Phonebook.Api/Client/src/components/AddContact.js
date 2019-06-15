@@ -4,16 +4,27 @@ import { API_ADDRESS } from "../config/settings";
 class AddContact extends Component {
   state = { name: null, phoneNumber: null };
 
+  updateName = event => {
+    this.setState({ name: event.target.value });
+  };
+
+  updatePhoneNumber = event => {
+    this.setState({ phoneNumber: event.target.value });
+  };
+
   saveContact = event => {
     event.preventDefault();
-    const data = new FormData(event.target);
+    const contact = {
+      name: this.state.name,
+      phoneNumber: this.state.phoneNumber
+    };
 
     fetch(`${API_ADDRESS}/save`, {
       method: "POST",
-      body: data,
+      body: JSON.stringify(contact),
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
+        accept: "application/json"
       }
     })
       .then(response => response.json())
@@ -26,8 +37,12 @@ class AddContact extends Component {
   render() {
     return (
       <form onSubmit={this.saveContact}>
-        <input name="name" placeholder="Name" />
-        <input name="phoneNumber" placeholder="Phone number" />
+        <input name="name" placeholder="Name" onChange={this.updateName} />
+        <input
+          name="phoneNumber"
+          placeholder="Phone number"
+          onChange={this.updatePhoneNumber}
+        />
         <button>Save</button>
       </form>
     );

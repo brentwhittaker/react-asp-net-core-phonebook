@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Phonebook.Api.Models
 {
-    public class RequestEntry
+    public class Contact
     {
         public string Name { get; set; }
         public string PhoneNumber { get; set; }

@@ -1,2 +1,2 @@
-export const API_ADDRESS = "https://localhost:44345";
-export const DEFAULT_PAGE_SIZE = 3;
+export const API_ADDRESS = "https://localhost:5001";
+export const DEFAULT_PAGE_SIZE = 10;
