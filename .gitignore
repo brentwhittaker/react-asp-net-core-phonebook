@@ -1,6 +1,7 @@
 .vs
 .cache
 *.cache
+
 Phonebook.Api/Client/.cache
 Phonebook.Api/Client/dist
 Phonebook.Api/Client/node_modules
