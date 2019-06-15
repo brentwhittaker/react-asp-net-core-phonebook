@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Switch, Route } from "react-router-dom";
-import createBrowserHistory from "history/createBrowserHistory";
+import { createBrowserHistory } from "history";
 import Header from "./components/Header";
 import App from "./components/App";
 import AddContact from "./components/AddContact";

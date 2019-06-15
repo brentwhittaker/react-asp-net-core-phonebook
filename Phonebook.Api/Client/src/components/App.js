@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Search from "./Search";
 import Contacts from "./Contacts";
-
-const API_ADDRESS = "https://localhost:5001";
-const defaultPageSize = 3;
+import { API_ADDRESS, DEFAULT_PAGE_SIZE } from "../config/settings";
 
 class App extends Component {
   state = {
@@ -38,14 +36,14 @@ class App extends Component {
       }
       address += `pageNo=${pageNo}`;
     }
-    if (defaultPageSize !== undefined && defaultPageSize !== null) {
+    if (DEFAULT_PAGE_SIZE !== undefined && DEFAULT_PAGE_SIZE !== null) {
       if (!hasParams) {
         address += "?";
         hasParams = true;
       } else {
         address += "&";
       }
-      address += `pageSize=${defaultPageSize}`;
+      address += `pageSize=${DEFAULT_PAGE_SIZE}`;
     }
     fetch(address)
       .then(response => response.json())
@@ -53,7 +51,7 @@ class App extends Component {
         this.setState({ entries: json.entries });
         this.setState({ pageNo: json.pageNo });
         this.setState({ totalPages: json.totalPages });
-        this.setState({ searchTerm: json.searchTerm });
+        this.setState({ searchTerm: searchTerm });
       })
       .catch(error => alert(error.message));
   };

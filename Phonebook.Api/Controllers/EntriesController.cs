@@ -22,6 +22,14 @@ namespace Phonebook.Api.Controllers
         [HttpPost("save")]
         public async Task<IActionResult> Post([FromBody] RequestEntry model)
         {
+            if (model == null)
+            {
+                return BadRequest(new { message = "Model is invalid" });
+            }
+            if (string.IsNullOrEmpty(model.Name) || string.IsNullOrEmpty(model.PhoneNumber))
+            {
+                return BadRequest(new { message = "Model is invalid" });
+            }
             var command = new Phonebook.Common.Commands.xEntry();
             command.Id = Guid.NewGuid();
             command.Name = model.Name;
@@ -35,18 +43,25 @@ namespace Phonebook.Api.Controllers
         {
             if (pageNo < 0 || pageSize < 0)
             {
-                return BadRequest();
+                return BadRequest(new { message = "Query params are invalid" });
             }
             var totalEntries = string.IsNullOrEmpty(searchTerm) ?
                 _repository.TotalCount() :
                 _repository.SearchCount(searchTerm);
+
+            var totalPages = Math.Ceiling((float)totalEntries / (float)pageSize);
+            totalPages = totalPages == 0 ? totalPages = 1 : totalPages;
+
+            if (pageNo > totalPages)
+            {
+                return BadRequest(new { message = "Query params are invalid" });
+            }
+
             var entries = string.IsNullOrEmpty(searchTerm) ?
                 _repository.GetCollection(pageNo, pageSize) :
                 _repository.SearchCollection(pageNo, pageSize, searchTerm);
 
-            var totalPages = Math.Ceiling((float)totalEntries / (float)pageSize);
-            totalPages = totalPages == 0 ? totalPages = 1 : totalPages;
-            return Json(new { entries, searchTerm, pageNo, totalPages });
+            return Json(new { entries, pageNo, totalPages });
         }
     }
 }
