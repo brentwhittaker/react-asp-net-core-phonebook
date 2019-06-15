@@ -36,14 +36,20 @@ class AddContact extends Component {
 
   render() {
     return (
-      <form onSubmit={this.saveContact}>
-        <input name="name" placeholder="Name" onChange={this.updateName} />
+      <form onSubmit={this.saveContact} className="add-contact-form">
+        <input
+          name="name"
+          placeholder="Name"
+          onChange={this.updateName}
+          className="input"
+        />
         <input
           name="phoneNumber"
           placeholder="Phone number"
           onChange={this.updatePhoneNumber}
+          className="input"
         />
-        <button>Save</button>
+        <button className="btn">Save</button>
       </form>
     );
   }

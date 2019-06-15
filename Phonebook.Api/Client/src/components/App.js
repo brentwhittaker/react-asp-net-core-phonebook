@@ -58,7 +58,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <section className="section">
         <Search fetchContacts={this.fetchContacts} pageNo={this.state.pageNo} />
         <Contacts
           fetchContacts={this.fetchContacts}
@@ -67,7 +67,7 @@ class App extends Component {
           totalPages={this.state.totalPages}
           searchTerm={this.state.searchTerm}
         />
-      </div>
+      </section>
     );
   }
 }

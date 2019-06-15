@@ -4,9 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel src/index.html",
+    "watch-sass": "node-sass src/sass/main.scss src/css/style.css -w",
+    "dev": "npm-run-all --parallel dev-serv watch-sass",
+    "compile-sass": "node-sass src/sass/main.scss src/css/style.comp.css",
+    "prefix-css": "postcss --use autoprefixer -b \"last 10 versions\" src/css/style.comp.css -o src/css/style.prefix.css",
+    "compress-css": "node-sass src/css/style.prefix.css src/css/style.css --output-style compressed",
+    "build-css": "npm-run-all compile-sass prefix-css compress-css",
+    "dev-serv": "parcel src/index.html",
+    "live-serv": "live-server dist",
     "build": "parcel build src/index.html",
-    "start": "npm run build && live-server dist"
+    "start": "npm-run-all build-css build live-serv"
   },
   "keywords": [],
   "author": "",
@@ -19,5 +26,12 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.4",
+    "concat": "^1.0.3",
+    "node-sass": "^4.5.3",
+    "npm-run-all": "^4.1.1",
+    "postcss-cli": "^6.1.2"
   }
 }

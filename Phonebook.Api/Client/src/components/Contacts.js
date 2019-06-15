@@ -23,23 +23,27 @@ class Contacts extends Component {
   render() {
     const { entries, pageNo, totalPages } = this.props;
     return (
-      <div>
-        <ul>
+      <div className="contact">
+        <ul className="contact__list">
           {entries.map(entry => {
             const { id, name, phoneNumber } = entry;
             return (
-              <li key={id}>
-                <p>{name}</p>
-                <p>{phoneNumber}</p>
+              <li key={id} className="contact__item">
+                <p className="contact__name">{name}</p>
+                <p className="contact__number">{phoneNumber}</p>
               </li>
             );
           })}
         </ul>
-        <button onClick={this.pagePrev}>Prev</button>
-        <p>
+        <button onClick={this.pagePrev} className="btn btn-pager">
+          Prev
+        </button>
+        <p className="pager-text">
           Page {pageNo} of {totalPages}
         </p>
-        <button onClick={this.pageNext}>Next</button>
+        <button onClick={this.pageNext} className="btn btn-pager">
+          Next
+        </button>
       </div>
     );
   }

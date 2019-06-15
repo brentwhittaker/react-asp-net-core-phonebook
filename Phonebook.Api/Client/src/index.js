@@ -5,6 +5,7 @@ import { createBrowserHistory } from "history";
 import Header from "./components/Header";
 import App from "./components/App";
 import AddContact from "./components/AddContact";
+import "./css/style.css";
 
 ReactDOM.render(
   <Router history={createBrowserHistory()}>

@@ -23,13 +23,16 @@ class Search extends Component {
   render() {
     console.log("this.state", this.state);
     return (
-      <div>
+      <div className="search-contacts">
         <input
           onChange={this.updateSearchTerm}
           onKeyPress={this.handlekeyPress}
           placeholder="Search name or number"
+          className="input"
         />
-        <button onClick={this.searchContacts}>Search</button>
+        <button onClick={this.searchContacts} className="btn">
+          Search
+        </button>
       </div>
     );
   }

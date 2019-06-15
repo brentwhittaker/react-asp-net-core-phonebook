@@ -2,6 +2,7 @@
 .cache
 *.cache
 
+Phonebook.Api/obj
 Phonebook.Api/Client/.cache
 Phonebook.Api/Client/dist
 Phonebook.Api/Client/node_modules
