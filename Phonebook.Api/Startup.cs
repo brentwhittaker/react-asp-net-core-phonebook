@@ -44,6 +44,7 @@ namespace Phonebook.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(options => options.AllowAnyOrigin());
             }
             else
             {
@@ -55,7 +56,6 @@ namespace Phonebook.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Phonebook Api v1");
             });
-            app.UseCors(options => options.AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

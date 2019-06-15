@@ -30,21 +30,23 @@ namespace Phonebook.Api.Controllers
             return Accepted($"save/{command.Id}");
         }
 
-        [HttpGet("getbook")]
-        public async Task<IActionResult> Get(string searchTerm, int pageNo = 1, int pageSize = 10)
+        [HttpGet("contacts")]
+        public IActionResult Get(string searchTerm, int pageNo = 1, int pageSize = 10)
         {
             if (pageNo < 0 || pageSize < 0)
             {
                 return BadRequest();
             }
-            var totalEntries = await _repository.TotalCountAsync();
+            var totalEntries = string.IsNullOrEmpty(searchTerm) ?
+                _repository.TotalCount() :
+                _repository.SearchCount(searchTerm);
             var entries = string.IsNullOrEmpty(searchTerm) ?
-                _repository.GetCollectionAsync(pageNo, pageSize) :
-                _repository.SearchCollectionAsync(pageNo, pageSize, searchTerm);
+                _repository.GetCollection(pageNo, pageSize) :
+                _repository.SearchCollection(pageNo, pageSize, searchTerm);
 
             var totalPages = Math.Ceiling((float)totalEntries / (float)pageSize);
-
-            return Json(new { entries, pageNo, totalPages, searchTerm });
+            totalPages = totalPages == 0 ? totalPages = 1 : totalPages;
+            return Json(new { entries, searchTerm, pageNo, totalPages });
         }
     }
 }

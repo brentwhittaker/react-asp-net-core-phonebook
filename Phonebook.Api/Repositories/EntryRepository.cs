@@ -21,31 +21,36 @@ namespace Phonebook.Api.Repositories
         public async Task AddAsync(xEntry entry)
             => await Collection.InsertOneAsync(entry);
 
-        public IEnumerable<xEntry> GetCollectionAsync(int pageNo, int pageSize)
+        public IEnumerable<xEntry> GetCollection(int pageNo, int pageSize)
             => Collection
                 .Find(new BsonDocument())
                 .Sort(Builders<xEntry>.Sort.Ascending("Name"))
                 .ToList()
-                .AsQueryable()
-                .Skip((pageNo - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-        
-        public IEnumerable<xEntry> SearchCollectionAsync(int pageNo, int pageSize, string searchTerm)
-            =>  Collection
-                .Find(Builders<xEntry>.Filter.Regex("Name", new BsonRegularExpression(new Regex(searchTerm, RegexOptions.IgnoreCase)))
-                        | Builders<xEntry>.Filter.Regex("PhoneNumber", new BsonRegularExpression(searchTerm)))
-                .Sort(Builders<xEntry>.Sort.Ascending("Name"))
-                .ToList()
-                .AsQueryable()
                 .Skip((pageNo - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
-        public async Task<int> TotalCountAsync()
-            => await Collection
+        public IEnumerable<xEntry> SearchCollection(int pageNo, int pageSize, string searchTerm)
+            => Collection
+                .Find(Builders<xEntry>.Filter.Regex("Name", new BsonRegularExpression(new Regex(searchTerm, RegexOptions.IgnoreCase)))
+                        | Builders<xEntry>.Filter.Regex("PhoneNumber", new BsonRegularExpression(searchTerm)))
+                .Sort(Builders<xEntry>.Sort.Ascending("Name"))
+                .ToList()
+                .Skip((pageNo - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+        public int TotalCount()
+            => Collection
                 .AsQueryable()
-                .CountAsync();
+                .Count();
+
+        public int SearchCount(string searchTerm)
+            => Collection
+                .Find(Builders<xEntry>.Filter.Regex("Name", new BsonRegularExpression(new Regex(searchTerm, RegexOptions.IgnoreCase)))
+                        | Builders<xEntry>.Filter.Regex("PhoneNumber", new BsonRegularExpression(searchTerm)))
+                .ToList()
+                .Count();
 
         private IMongoCollection<xEntry> Collection
             => _database.GetCollection<xEntry>("Entries");
