@@ -102,7 +102,9 @@ body {
   border-radius: 5px;
   transition: all 0.2s; }
   .input:active, .input:focus {
-    transform: scaleX(1.05); }
+    transform: scaleX(1.05);
+    outline: none;
+    border: 1px solid #ff3366; }
 
 .form-line {
   margin: 2rem 0;

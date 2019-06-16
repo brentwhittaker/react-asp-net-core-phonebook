@@ -49,6 +49,7 @@ class App extends Component {
       }
       address += `pageSize=${DEFAULT_PAGE_SIZE}`;
     }
+    console.log("fetch", address);
     fetch(address)
       .then(response => response.json())
       .then(json => {
@@ -77,7 +78,9 @@ class App extends Component {
               searchTerm={this.state.searchTerm}
             />
           </div>
-        ) : this.state.searchTerm !== null || this.state.searchTerm !== "" ? (
+        ) : this.state.searchTerm !== null &&
+          this.state.searchTerm !== "" &&
+          this.state.searchTerm !== undefined ? (
           <div className="section-container">
             <Search
               fetchContacts={this.fetchContacts}

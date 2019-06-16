@@ -6,7 +6,8 @@ class Search extends Component {
   updateSearchTerm = event => {
     this.setState({ searchTerm: event.target.value });
     if (event.target.value == "") {
-      this.searchContacts();
+      const { pageNo } = this.props;
+      this.props.fetchContacts(event.target.value, pageNo);
     }
   };
 
