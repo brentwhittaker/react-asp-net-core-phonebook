@@ -53,5 +53,5 @@ dotnet run -p phonebook.api/phonebook.api.csproj
 ```sh
 cd phonebook.api/client && npm i && npm start
 ```
-- Go to https://127.0.0.1:8080
+- Go to http://127.0.0.1:8080
 
