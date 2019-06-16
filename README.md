@@ -19,7 +19,7 @@
 
 ### Back-end
 
-- MongoDb with C# MongoDb driver
+- MongoDb with C# driver
 - RabbitMq
 - Asp.net Core WebApi
 
