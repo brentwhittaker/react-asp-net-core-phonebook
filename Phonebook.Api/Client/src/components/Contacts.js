@@ -35,15 +35,18 @@ class Contacts extends Component {
             );
           })}
         </ul>
-        <button onClick={this.pagePrev} className="btn btn-pager">
-          Prev
-        </button>
-        <p className="pager-text">
-          Page {pageNo} of {totalPages}
-        </p>
-        <button onClick={this.pageNext} className="btn btn-pager">
-          Next
-        </button>
+        <hr className="form-line" />
+        <div className="pager">
+          <button onClick={this.pagePrev} className="pager__btn btn btn-small">
+            Prev
+          </button>
+          <p className="pager__text">
+            Page {pageNo} of {totalPages}
+          </p>
+          <button onClick={this.pageNext} className="pager__btn btn btn-small">
+            Next
+          </button>
+        </div>
       </div>
     );
   }

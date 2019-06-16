@@ -7,8 +7,10 @@ import App from "./components/App";
 import AddContact from "./components/AddContact";
 import "./css/style.css";
 
+const history = createBrowserHistory();
+
 ReactDOM.render(
-  <Router history={createBrowserHistory()}>
+  <Router history={history}>
     <Switch>
       <Route
         exact
@@ -23,7 +25,7 @@ ReactDOM.render(
         path="/add"
         render={() => (
           <Header>
-            <AddContact />
+            <AddContact history={history} />
           </Header>
         )}
       />

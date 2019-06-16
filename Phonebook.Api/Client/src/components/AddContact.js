@@ -30,6 +30,12 @@ class AddContact extends Component {
       .then(response => response.json())
       .then(json => {
         alert(json.message);
+        if (json.code === 202) {
+          let { history } = this.props;
+          history.push({
+            pathname: "/"
+          });
+        }
       })
       .catch(error => alert(error.message));
   };
@@ -42,13 +48,17 @@ class AddContact extends Component {
           placeholder="Name"
           onChange={this.updateName}
           className="input"
+          required
         />
         <input
+          type="tel"
           name="phoneNumber"
           placeholder="Phone number"
           onChange={this.updatePhoneNumber}
           className="input"
+          required
         />
+        <hr className="form-line" />
         <button className="btn">Save</button>
       </form>
     );

@@ -35,7 +35,7 @@ namespace Phonebook.Api.Controllers
             command.Name = model.Name;
             command.PhoneNumber = model.PhoneNumber;
             await _busClient.PublishAsync(command);
-            return Accepted(new { message = "Save succeeded" });
+            return Accepted(new { code = 202, message = "Save succeeded" });
         }
 
         [HttpGet("contacts")]
@@ -43,7 +43,7 @@ namespace Phonebook.Api.Controllers
         {
             if (pageNo < 0 || pageSize < 0)
             {
-                return BadRequest(new { message = "Cannot retrieve contacts" });
+                return BadRequest(new { code = 400, message = "Cannot retrieve contacts" });
             }
             var totalEntries = string.IsNullOrEmpty(searchTerm) ?
                 _repository.TotalCount() :
@@ -54,7 +54,7 @@ namespace Phonebook.Api.Controllers
 
             if (pageNo > totalPages)
             {
-                return BadRequest(new { message = "Cannot retrieve contacts" });
+                return BadRequest(new { code = 400, message = "Cannot retrieve contacts" });
             }
 
             var entries = string.IsNullOrEmpty(searchTerm) ?

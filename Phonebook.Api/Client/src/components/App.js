@@ -15,6 +15,10 @@ class App extends Component {
     this.fetchContacts();
   }
 
+  resetContacts = () => {
+    this.fetchContacts = (null, 1);
+  };
+
   fetchContacts = (searchTerm, pageNo) => {
     let address = `${API_ADDRESS}/contacts`;
     let hasParams = false;
@@ -58,15 +62,37 @@ class App extends Component {
 
   render() {
     return (
-      <section className="section">
-        <Search fetchContacts={this.fetchContacts} pageNo={this.state.pageNo} />
-        <Contacts
-          fetchContacts={this.fetchContacts}
-          entries={this.state.entries}
-          pageNo={this.state.pageNo}
-          totalPages={this.state.totalPages}
-          searchTerm={this.state.searchTerm}
-        />
+      <section>
+        {this.state.entries.length > 0 ? (
+          <div className="section-container">
+            <Search
+              fetchContacts={this.fetchContacts}
+              pageNo={this.state.pageNo}
+            />
+            <Contacts
+              fetchContacts={this.fetchContacts}
+              entries={this.state.entries}
+              pageNo={this.state.pageNo}
+              totalPages={this.state.totalPages}
+              searchTerm={this.state.searchTerm}
+            />
+          </div>
+        ) : this.state.searchTerm !== null || this.state.searchTerm !== "" ? (
+          <div className="section-container">
+            <Search
+              fetchContacts={this.fetchContacts}
+              pageNo={this.state.pageNo}
+            />
+            <p className="msg-phonebook">
+              Your search term did not match any contacts.
+            </p>
+          </div>
+        ) : (
+          <p className="msg-phonebook">
+            You do not have any contacts in your phonebook. Go to 'Add Contact'
+            to get started.
+          </p>
+        )}
       </section>
     );
   }

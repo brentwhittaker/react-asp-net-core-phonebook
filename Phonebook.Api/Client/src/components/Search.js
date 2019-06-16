@@ -21,16 +21,15 @@ class Search extends Component {
     this.props.fetchContacts(this.state.searchTerm, pageNo);
   };
   render() {
-    console.log("this.state", this.state);
     return (
       <div className="search-contacts">
         <input
           onChange={this.updateSearchTerm}
           onKeyPress={this.handlekeyPress}
           placeholder="Search name or number"
-          className="input"
+          className="input input-search"
         />
-        <button onClick={this.searchContacts} className="btn">
+        <button onClick={this.searchContacts} className="btn btn-small">
           Search
         </button>
       </div>
