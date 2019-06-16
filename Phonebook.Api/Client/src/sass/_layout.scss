@@ -1,10 +1,8 @@
 .container {
   margin: 0 auto;
   width: 60rem;
-
   display: grid;
   grid-template-rows: repeat(2, min-content);
-  grid-row-gap: 3rem;
 }
 
 .header {
@@ -12,6 +10,10 @@
   grid-template-rows: repeat(2, min-content);
   align-items: center;
   justify-items: center;
+
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  z-index: 10;
 
   background-image: linear-gradient(
     to right bottom,
@@ -56,4 +58,30 @@
   width: 33rem;
   text-align: center;
   margin: 2rem auto;
+}
+
+.section,
+.add-contact-form {
+  background-image: linear-gradient(
+    to right bottom,
+    $color-grey-light-1,
+    $color-grey-light-2
+  );
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  transform: translateY(-5px);
+  z-index: 1;
+}
+
+.footer {
+  padding: 3rem;
+  font-size: 1.7rem;
+  color: $color-grey-light-1;
+  background-color: $color-grey-dark-1;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  transform: translateY(-10px);
+  z-index: 9;
 }

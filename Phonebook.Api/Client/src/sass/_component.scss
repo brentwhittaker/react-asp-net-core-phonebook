@@ -79,6 +79,8 @@
       $color-grey-light-2
     );
     margin-bottom: 0.2rem;
+    border-radius: 5px;
+    border: 1px solid $color-grey-dark-2;
   }
 
   &__name {

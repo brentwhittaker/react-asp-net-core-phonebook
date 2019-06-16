@@ -20,6 +20,7 @@ const Header = ({ children }) => {
         </div>
       </header>
       {children}
+      <footer className="footer">&copy; 2019 Brent Whittaker</footer>
     </div>
   );
 };

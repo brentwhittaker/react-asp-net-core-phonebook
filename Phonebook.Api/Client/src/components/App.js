@@ -62,7 +62,7 @@ class App extends Component {
 
   render() {
     return (
-      <section>
+      <section className="section">
         {this.state.entries.length > 0 ? (
           <div className="section-container">
             <Search
