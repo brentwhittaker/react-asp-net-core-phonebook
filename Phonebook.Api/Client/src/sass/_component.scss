@@ -24,7 +24,9 @@
 .form-line {
   margin: 2rem 0;
   margin-bottom: 1rem;
-  color: $color-primary;
+  border: none;
+  height: 2px;
+  background: $color-primary;
 }
 
 .btn {

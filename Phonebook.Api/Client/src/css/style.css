@@ -107,7 +107,9 @@ body {
 .form-line {
   margin: 2rem 0;
   margin-bottom: 1rem;
-  color: #eb2f64; }
+  border: none;
+  height: 2px;
+  background: #eb2f64; }
 
 .btn {
   font-size: 2rem;
