@@ -49,9 +49,12 @@ dotnet run -p phonebook.services.entry/phonebook.services.entry.csproj
 dotnet run -p phonebook.api/phonebook.api.csproj
 ```
 - Go to https://localhost:5001/swagger/index.html
-- If you encounter the 'connection is not private' browser error message, please proceed to localhost(unsafe) to view swagger page.
 ```sh
 cd phonebook.api/client && npm i && npm start
 ```
 - Go to http://127.0.0.1:8080
+
+## Notes
+
+- If you encounter the 'connection is not private' browser error message, please proceed to localhost(unsafe) to view swagger page or microservice page.
 
